@@ -1,0 +1,152 @@
+@import url("header.css");
+@import url("intro.css");
+@import url("webdev.css");
+@import url("shortcuts.css");
+@import url("funfacts.css");
+
+/* Her legger du global styling som farger, fonter, bakgrunner, resets, typografi */
+
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  color: #eee;
+  box-sizing: border-box;
+  background: radial-gradient(circle at 60% 40%, #232b33 0%, #181c20 80%) fixed, 
+              repeating-radial-gradient(circle at 20% 80%, rgba(44,146,214,0.08) 0, rgba(44,146,214,0.08) 2px, transparent 3px, transparent 100px) fixed;
+  background-size: cover, cover;
+  background-attachment: fixed, fixed;
+}
+
+a {
+  color: #4CAF50; /* eksempel linkfarge */
+  text-decoration: none;
+}
+
+/* Scroll progress indicator */
+
+#scroll-menu {
+  position: fixed;
+  top: 90px;
+  left: 20px;
+  width: 4px;
+  height: calc(50vh - 60px);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+#progress-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+#progress-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: var(--scroll-progress, 0%);
+  background: linear-gradient(to bottom, #2c92d6, #4CAF50);
+  border-radius: 2px;
+  transition: height 0.1s ease;
+  z-index: 1;
+}
+
+.section-marker {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 2;
+  margin: 5px 0;
+}
+
+.section-marker:hover {
+  background: rgba(44, 146, 214, 0.6);
+  border-color: rgba(44, 146, 214, 0.8);
+  transform: scale(1.2);
+  box-shadow: 0 0 10px rgba(44, 146, 214, 0.4);
+}
+
+.section-marker.active {
+  background: #2c92d6;
+  border-color: #4CAF50;
+  box-shadow: 0 0 15px rgba(44, 146, 214, 0.6);
+  transform: scale(1.3);
+}
+
+.section-marker.revealed {
+  background: rgba(44, 146, 214, 0.4);
+  border-color: rgba(44, 146, 214, 0.6);
+}
+
+.section-marker::after {
+  content: attr(title);
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(30, 30, 30, 0.9);
+  color: #e0e0e0;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.section-marker.revealed::after {
+  opacity: 1;
+}
+
+.section-marker:hover::after {
+  opacity: 1;
+}
+
+#web_development {
+  background-color: #2a2a2a;
+  color: #ccc;
+}
+
+#shortcuts {
+  background-color: #1f1f1f;
+  color: #bbb;
+}
+
+#hashtag-showcase-text {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+#showcase-image-2d-3d {
+  height: 300px; /* eksempel høyde */
+  background-color: #333;
+  border: 1px solid #555;
+}
+
+#scroll-menu.scroll-menu-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-40px);
+  transition: opacity 0.4s, transform 0.4s;
+}
