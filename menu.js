@@ -78,59 +78,60 @@ document.addEventListener("DOMContentLoaded", () => {
   const slider = document.querySelector('.before-after-slider');
   const afterWrapper = document.querySelector('.after-wrapper');
   const handle = document.querySelector('.slider-handle');
-  if (!slider || !afterWrapper || !handle) return;
+  if (slider && afterWrapper && handle) {
+    let isDragging = false;
+    let sliderPercent = 50;
 
-  let isDragging = false;
-  let sliderPercent = 50;
+    function setSlider(x) {
+      const rect = slider.getBoundingClientRect();
+      let offset = x - rect.left;
+      offset = Math.max(0, Math.min(offset, rect.width));
+      const percent = (offset / rect.width) * 100;
+      sliderPercent = percent;
+      afterWrapper.style.width = percent + '%';
+      handle.style.left = `calc(${percent}% - 10px)`;
+    }
 
-  function setSlider(x) {
-    const rect = slider.getBoundingClientRect();
-    let offset = x - rect.left;
-    offset = Math.max(0, Math.min(offset, rect.width));
-    const percent = (offset / rect.width) * 100;
-    sliderPercent = percent;
-    afterWrapper.style.width = percent + '%';
-    handle.style.left = `calc(${percent}% - 10px)`;
+    function onMove(e) {
+      if (!isDragging) return;
+      let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      setSlider(clientX);
+    }
+
+    handle.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      document.body.style.cursor = 'ew-resize';
+      e.preventDefault();
+    });
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+      document.body.style.cursor = '';
+    });
+    window.addEventListener('mousemove', onMove);
+
+    // Touch support
+    handle.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      document.body.style.cursor = 'ew-resize';
+      e.preventDefault();
+    });
+    window.addEventListener('touchend', () => {
+      isDragging = false;
+      document.body.style.cursor = '';
+    });
+    window.addEventListener('touchmove', onMove);
+
+    // Set initial position to 50%
+    setSlider(slider.getBoundingClientRect().left + slider.offsetWidth / 2);
+
+    // Ensure handle stays in sync on window resize
+    window.addEventListener('resize', () => {
+      const rect = slider.getBoundingClientRect();
+      const offset = (sliderPercent / 100) * rect.width;
+      setSlider(rect.left + offset);
+    });
   }
-
-  function onMove(e) {
-    if (!isDragging) return;
-    let clientX = e.touches ? e.touches[0].clientX : e.clientX;
-    setSlider(clientX);
-  }
-
-  handle.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    document.body.style.cursor = 'ew-resize';
-    e.preventDefault();
-  });
-  window.addEventListener('mouseup', () => {
-    isDragging = false;
-    document.body.style.cursor = '';
-  });
-  window.addEventListener('mousemove', onMove);
-
-  // Touch support
-  handle.addEventListener('touchstart', (e) => {
-    isDragging = true;
-    document.body.style.cursor = 'ew-resize';
-    e.preventDefault();
-  });
-  window.addEventListener('touchend', () => {
-    isDragging = false;
-    document.body.style.cursor = '';
-  });
-  window.addEventListener('touchmove', onMove);
-
-  // Set initial position to 50%
-  setSlider(slider.getBoundingClientRect().left + slider.offsetWidth / 2);
-
-  // Ensure handle stays in sync on window resize
-  window.addEventListener('resize', () => {
-    const rect = slider.getBoundingClientRect();
-    const offset = (sliderPercent / 100) * rect.width;
-    setSlider(rect.left + offset);
-  });
+  // --- End Before/After Slider Logic ---
 
   // --- Music Player Logic ---
   const audio = document.getElementById('audio-player');
@@ -142,51 +143,51 @@ document.addEventListener("DOMContentLoaded", () => {
   const duration = document.getElementById('duration');
   const volumeBar = document.getElementById('volume-bar');
 
-  if (!audio) return;
+  if (audio) {
+    // Play/Pause toggle
+    playPauseBtn.addEventListener('click', function () {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
 
-  // Play/Pause toggle
-  playPauseBtn.addEventListener('click', function () {
-    if (audio.paused) {
-      audio.play();
-    } else {
-      audio.pause();
-    }
-  });
+    audio.addEventListener('play', function () {
+      playIcon.style.display = 'none';
+      pauseIcon.style.display = '';
+    });
+    audio.addEventListener('pause', function () {
+      playIcon.style.display = '';
+      pauseIcon.style.display = 'none';
+    });
 
-  audio.addEventListener('play', function () {
-    playIcon.style.display = 'none';
-    pauseIcon.style.display = '';
-  });
-  audio.addEventListener('pause', function () {
-    playIcon.style.display = '';
-    pauseIcon.style.display = 'none';
-  });
+    // Update seek bar and time
+    audio.addEventListener('timeupdate', function () {
+      seekBar.value = (audio.currentTime / audio.duration) * 100 || 0;
+      currentTime.textContent = formatTime(audio.currentTime);
+    });
+    audio.addEventListener('loadedmetadata', function () {
+      duration.textContent = formatTime(audio.duration);
+      seekBar.value = 0;
+      currentTime.textContent = '0:00';
+    });
+    seekBar.addEventListener('input', function () {
+      audio.currentTime = (seekBar.value / 100) * audio.duration;
+    });
 
-  // Update seek bar and time
-  audio.addEventListener('timeupdate', function () {
-    seekBar.value = (audio.currentTime / audio.duration) * 100 || 0;
-    currentTime.textContent = formatTime(audio.currentTime);
-  });
-  audio.addEventListener('loadedmetadata', function () {
-    duration.textContent = formatTime(audio.duration);
-    seekBar.value = 0;
-    currentTime.textContent = '0:00';
-  });
-  seekBar.addEventListener('input', function () {
-    audio.currentTime = (seekBar.value / 100) * audio.duration;
-  });
-
-  // Volume
-  volumeBar.addEventListener('input', function () {
+    // Volume
+    volumeBar.addEventListener('input', function () {
+      audio.volume = volumeBar.value;
+    });
     audio.volume = volumeBar.value;
-  });
-  audio.volume = volumeBar.value;
 
-  // Utility
-  function formatTime(sec) {
-    sec = Math.floor(sec);
-    const min = Math.floor(sec / 60);
-    const s = sec % 60;
-    return min + ':' + (s < 10 ? '0' : '') + s;
+    // Utility
+    function formatTime(sec) {
+      sec = Math.floor(sec);
+      const min = Math.floor(sec / 60);
+      const s = sec % 60;
+      return min + ':' + (s < 10 ? '0' : '') + s;
+    }
   }
 });
