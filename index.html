@@ -72,6 +72,15 @@
 
     <section id="funfacts">
       <h2>Funfacts about Ken</h2>
+      <h3>Ken got bored once and made a theme song for himself. It's called "Ken's Theme Song".</h3>
+      <div class="music-player" id="music-player">
+        <button id="play-pause" aria-label="Play/Pause"><span id="play-icon">▶️</span><span id="pause-icon" style="display:none;">⏸️</span></button>
+        <span id="song-title">Ken's Theme Song</span>
+        <audio id="audio-player" src="images/ThemeSong.mp3"></audio>
+        <input type="range" id="seek-bar" value="0" min="0" max="100" step="1">
+        <span id="current-time">0:00</span> / <span id="duration">0:00</span>
+        <input type="range" id="volume-bar" min="0" max="1" step="0.01" value="0.7">
+      </div>
       <p>1. Ken has beef with King Diamond. King Diamond doesn't know it. But it's very real. <br>
         2. He once made a fake real estate site for his teachers' homes. The accuracy was borderline unsettling. <br>
         3. He fears dragonflies more than deadlines. And he's met both in the wild. <br>

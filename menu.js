@@ -131,4 +131,62 @@ document.addEventListener("DOMContentLoaded", () => {
     const offset = (sliderPercent / 100) * rect.width;
     setSlider(rect.left + offset);
   });
+
+  // --- Music Player Logic ---
+  const audio = document.getElementById('audio-player');
+  const playPauseBtn = document.getElementById('play-pause');
+  const playIcon = document.getElementById('play-icon');
+  const pauseIcon = document.getElementById('pause-icon');
+  const seekBar = document.getElementById('seek-bar');
+  const currentTime = document.getElementById('current-time');
+  const duration = document.getElementById('duration');
+  const volumeBar = document.getElementById('volume-bar');
+
+  if (!audio) return;
+
+  // Play/Pause toggle
+  playPauseBtn.addEventListener('click', function () {
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  });
+
+  audio.addEventListener('play', function () {
+    playIcon.style.display = 'none';
+    pauseIcon.style.display = '';
+  });
+  audio.addEventListener('pause', function () {
+    playIcon.style.display = '';
+    pauseIcon.style.display = 'none';
+  });
+
+  // Update seek bar and time
+  audio.addEventListener('timeupdate', function () {
+    seekBar.value = (audio.currentTime / audio.duration) * 100 || 0;
+    currentTime.textContent = formatTime(audio.currentTime);
+  });
+  audio.addEventListener('loadedmetadata', function () {
+    duration.textContent = formatTime(audio.duration);
+    seekBar.value = 0;
+    currentTime.textContent = '0:00';
+  });
+  seekBar.addEventListener('input', function () {
+    audio.currentTime = (seekBar.value / 100) * audio.duration;
+  });
+
+  // Volume
+  volumeBar.addEventListener('input', function () {
+    audio.volume = volumeBar.value;
+  });
+  audio.volume = volumeBar.value;
+
+  // Utility
+  function formatTime(sec) {
+    sec = Math.floor(sec);
+    const min = Math.floor(sec / 60);
+    const s = sec % 60;
+    return min + ':' + (s < 10 ? '0' : '') + s;
+  }
 });
