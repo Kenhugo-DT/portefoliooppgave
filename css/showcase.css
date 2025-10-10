@@ -1,0 +1,12 @@
+#model-container {
+    width: 100%;
+    height: calc(100vh - 80px); /* Adjust based on your header height */
+    margin-top: 80px; /* Match your header height */
+    position: relative;
+    background: #1a1a1a;
+}
+
+#model-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}

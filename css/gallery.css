@@ -321,4 +321,16 @@
     width: 44px;
     height: 44px;
   }
+}
+
+.skills-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.skill-icon {
+  width: 40px;
+  height: 40px;
 } 

@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Set active state for the current section
+    let activeIndex = -1;
     sections.forEach((section, index) => {
       const marker = markers[index];
       const sectionTop = section.offsetTop;
@@ -66,9 +67,26 @@ document.addEventListener("DOMContentLoaded", () => {
       if (marker && marker.style.display === "block") {
         if (scrollPos >= sectionTop && scrollPos < sectionBottom) {
           marker.classList.add('active');
+          activeIndex = index;
         } else {
           marker.classList.remove('active');
         }
+      }
+    });
+
+    // Animate the label (tag) of the active marker to slide along the menu line
+    markers.forEach((marker, index) => {
+      const label = marker;
+      const after = label.querySelector('::after'); // pseudo-element, not accessible directly
+      if (marker.classList.contains('active')) {
+        // Calculate the vertical position for the label
+        const markerRect = marker.getBoundingClientRect();
+        const containerRect = progressContainer.getBoundingClientRect();
+        const offsetY = markerRect.top - containerRect.top;
+        marker.style.setProperty('--label-offset', `${offsetY}px`);
+        marker.classList.add('label-active');
+      } else {
+        marker.classList.remove('label-active');
       }
     });
   }
@@ -194,4 +212,39 @@ document.addEventListener("DOMContentLoaded", () => {
       return min + ':' + (s < 10 ? '0' : '') + s;
     }
   }
+
+  // --- Menu Items Logic ---
+  const menuItems = [
+    {
+      text: "Home",
+      href: "index.html"
+    },
+    {
+      text: "About",
+      href: "about.html"
+    },
+    {
+      text: "Services",
+      href: "services.html"
+    },
+    {
+      text: "Contact",
+      href: "contact.html"
+    },
+    {
+      text: "3D Models",
+      href: "showcase.html"
+    }
+  ];
+
+  const menuList = document.getElementById("menu-list");
+  menuItems.forEach(item => {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = item.href;
+    a.textContent = item.text;
+    li.appendChild(a);
+    menuList.appendChild(li);
+  });
+  // --- End Menu Items Logic ---
 });

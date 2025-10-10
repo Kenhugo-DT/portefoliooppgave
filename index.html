@@ -6,13 +6,23 @@
   <title>Portfolio</title>
   <script src="menu.js" defer></script>
   <script src="gallery.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/gallery.css" />
 </head>
 <body>
 
+  <button id="theme-toggle" style="position: fixed; top: 18px; right: 28px; z-index: 10001; background: none; border: none; font-size: 1.7rem; cursor: pointer; color: #ffe066; transition: color 0.3s;">🌙</button>
+
   <header id="header">
     <h1>Have you met Ken?</h1>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="showcase.html">3D Showcase</a></li>
+      </ul>
+    </nav>
   </header>
 
   <nav id="scroll-menu">
@@ -68,6 +78,20 @@
     <section id="gallery-section">
       <h2 style="text-align:center; font-size:2.7rem; margin-bottom:1.9rem; color:#d3d3d3;">Ken's show-off corner</h2>
       <div id="image-gallery"></div>
+      <div class="skills-row">
+        <img src="images/javascript-programming-language-icon.svg" alt="JavaScript" class="skill-icon">
+        <img src="images/react-js-icon.svg" alt="React" class="skill-icon">
+        <img src="images/python-programming-language-icon.svg" alt="Python" class="skill-icon">
+        <img src="images/html-icon.svg" alt="HTML" class="skill-icon">
+        <img src="images/css-icon.svg" alt="CSS" class="skill-icon">
+        <img src="images/tailwind-css-icon.svg" alt="Tailwind CSS" class="skill-icon">
+        <img src="images/adobe-photoshop-icon.svg" alt="Adobe Photoshop" class="skill-icon">
+        <img src="images/adobe-substance-3d-painter-icon.svg" alt="Adobe Substance Painter" class="skill-icon">
+        <img src="images/blender-icon.svg" alt="Blender" class="skill-icon">
+        <img src="images/openai-icon.svg" alt="OpenAI" class="skill-icon">
+        <img src="images/claude-ai-icon.svg" alt="Claude AI" class="skill-icon">
+        <img src="images/cursor-ai-code-icon.svg" alt="Cursor" class="skill-icon">
+      </div>
     </section>
 
     <section id="funfacts">
@@ -92,10 +116,10 @@
       <hr style="margin: 2.5rem 0; border: none; border-top: 1px solid #444; width: 60%;">
       <h3 style="text-align:center; margin-bottom: 1.5rem; color: #e0e0e0;">Where to find Ken</h3>
       <div class="shortcut-icons">
-        <a href="mailto:your.email@example.com" class="shortcut-icon email-icon" title="Send me an email">
+        <a href="mailto:kenhuped@gmail.com" class="shortcut-icon email-icon" title="Send me an email">
           <img src="images/mail.svg" alt="Email" width="48" height="48">
         </a>
-        <a href="https://github.com/yourusername" target="_blank" class="shortcut-icon github-icon" title="Check out my GitHub">
+        <a href="https://github.com/Kenhugo-DT" target="_blank" class="shortcut-icon github-icon" title="Check out my GitHub">
           <img src="images/github.svg" alt="GitHub" width="48" height="48">
         </a>
       </div>
@@ -104,6 +128,34 @@
     <!-- Random Showcase section removed -->
 
   </main>
+
+  <script>
+    // Animate the menu in from the top
+    gsap.from("#scroll-menu", { y: -100, opacity: 0, duration: 1, ease: "power2.out" });
+
+    // Animate each section as it enters the viewport
+    gsap.utils.toArray("main section").forEach(section => {
+      gsap.from(section, {
+        scrollTrigger: {
+          trigger: section,
+          start: "top 80%",
+          toggleActions: "play none none none"
+        },
+        y: 60,
+        opacity: 0,
+        duration: 1,
+        ease: "power2.out"
+      });
+    });
+
+    // Light/Dark mode toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      themeToggle.textContent = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
+      themeToggle.style.color = document.body.classList.contains('light-mode') ? '#222' : '#ffe066';
+    });
+  </script>
 
 </body>
 </html>
