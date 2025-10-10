@@ -1,3 +1,5 @@
+console.log("menu.js loaded");
+
 document.addEventListener("DOMContentLoaded", () => {
   const sections = document.querySelectorAll("main section");
   const scrollMenu = document.getElementById("scroll-menu");
@@ -142,6 +144,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const currentTime = document.getElementById('current-time');
   const duration = document.getElementById('duration');
   const volumeBar = document.getElementById('volume-bar');
+
+  console.log("audio:", audio, "playPauseBtn:", playPauseBtn);
 
   if (audio) {
     // Play/Pause toggle
