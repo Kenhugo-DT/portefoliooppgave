@@ -1,12 +1,86 @@
-#model-container {
-    width: 100%;
-    height: calc(100vh - 80px); /* Adjust based on your header height */
-    margin-top: 80px; /* Match your header height */
-    position: relative;
-    background: #1a1a1a;
+/* Styling consistent with main site: dark background, warm accent */
+:root{
+  --bg:#0f1417;
+  --panel:#121619;
+  --muted:#cfcfcf;
+  --accent:#ffe066;
+  --glass: rgba(255,255,255,0.03);
 }
 
-#model-container canvas {
-    width: 100% !important;
-    height: 100% !important;
+body {
+  background: radial-gradient(circle at 10% 10%, rgba(255,255,255,0.02), transparent 15%), var(--bg);
+  color: var(--muted);
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+header#header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 1.1rem 2rem;
+  position:sticky;
+  top:0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.25), transparent);
+  z-index:1000;
+}
+
+.site-title { margin:0; font-size:1.1rem; color:var(--accent); }
+
+.main-nav ul { list-style:none; display:flex; gap:1rem; margin:0; padding:0; align-items:center; }
+.main-nav a { color:var(--accent); text-decoration:none; padding:0.4rem 0.8rem; border-radius:6px; transition:background .15s, color .15s; }
+.main-nav a:hover, .main-nav a[aria-current="page"] { background:var(--accent); color:#111; }
+
+.showcase-main {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height: calc(100vh - 84px);
+  padding: 2rem;
+}
+
+.showcase-panel {
+  width:100%;
+  max-width:1100px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  border-radius:12px;
+  padding:2rem;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.03);
+  text-align:center;
+}
+
+.showcase-title { margin:0 0 1rem 0; color:var(--muted); font-weight:600; }
+
+.wip-card {
+  margin: 1.2rem auto 0;
+  display:block;
+  background: var(--glass);
+  padding:1rem;
+  border-radius:10px;
+  max-width:900px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.02);
+}
+
+.wip-img {
+  width:100%;
+  height: auto;
+  display:block;
+  border-radius:8px;
+  object-fit:contain;
+  background: linear-gradient(180deg, rgba(0,0,0,0.1), rgba(255,255,255,0.02));
+}
+
+/* caption style */
+.wip-caption {
+  margin-top:0.75rem;
+  color: #bdbdbd;
+  font-size:0.95rem;
+}
+
+/* responsive tweaks */
+@media (max-width:700px){
+  .showcase-panel { padding:1rem; }
+  .site-title { font-size:1rem; }
 }

@@ -13,21 +13,43 @@
 </head>
 <body>
 
-  <button id="theme-toggle" style="position: fixed; top: 18px; right: 28px; z-index: 10001; background: none; border: none; font-size: 1.7rem; cursor: pointer; color: #ffe066; transition: color 0.3s;">🌙</button>
-
   <header id="header">
     <h1>Have you met Ken?</h1>
     <nav class="main-nav">
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="showcase.html">3D Showcase</a></li>
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="music.html">Music</a></li>
       </ul>
     </nav>
   </header>
 
-  <nav id="scroll-menu">
-    <!-- Dynamiske knapper legges her via JS -->
-  </nav>
+  <!-- NAV MUST BE OUTSIDE <header> -->
+<nav id="scroll-menu">
+
+    <div class="scroll-item locked">
+        <div class="scroll-btn" data-target="#introduction"></div>
+        <span class="scroll-label">Introduction</span>
+    </div>
+
+    <div class="scroll-item locked">
+        <div class="scroll-btn" data-target="#web-development"></div>
+        <span class="scroll-label">Web Development</span>
+    </div>
+
+    <div class="scroll-item locked">
+        <div class="scroll-btn" data-target="#gallery-section"></div>
+        <span class="scroll-label">Showcase</span>
+    </div>
+
+    <div class="scroll-item locked">
+        <div class="scroll-btn" data-target="#funfacts"></div>
+        <span class="scroll-label">Fun Facts</span>
+    </div>
+
+</nav>
+
+
+
 
   <main>
     <section id="introduction">
@@ -77,6 +99,7 @@
     <!-- Image Gallery Section -->
     <section id="gallery-section">
       <h2 style="text-align:center; font-size:2.7rem; margin-bottom:1.9rem; color:#d3d3d3;">Ken's show-off corner</h2>
+      <h3 style="text-align:center; font-size:1.4rem; margin-bottom:1.9rem; color:#a4a4a4;">Click the picture to open the gallery.</h3>
       <div id="image-gallery"></div>
       <div class="skills-row">
         <img src="images/javascript-programming-language-icon.svg" alt="JavaScript" class="skill-icon">
@@ -125,37 +148,8 @@
       </div>
     </section>
 
-    <!-- Random Showcase section removed -->
-
   </main>
-
-  <script>
-    // Animate the menu in from the top
-    gsap.from("#scroll-menu", { y: -100, opacity: 0, duration: 1, ease: "power2.out" });
-
-    // Animate each section as it enters the viewport
-    gsap.utils.toArray("main section").forEach(section => {
-      gsap.from(section, {
-        scrollTrigger: {
-          trigger: section,
-          start: "top 80%",
-          toggleActions: "play none none none"
-        },
-        y: 60,
-        opacity: 0,
-        duration: 1,
-        ease: "power2.out"
-      });
-    });
-
-    // Light/Dark mode toggle
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('light-mode');
-      themeToggle.textContent = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
-      themeToggle.style.color = document.body.classList.contains('light-mode') ? '#222' : '#ffe066';
-    });
-  </script>
 
 </body>
 </html>
+

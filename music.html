@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Music</title>
+
+  <!-- GLOBAL DESIGN -->
+  <link rel="stylesheet" href="css/main.css">
+
+  <!-- PAGE-SPECIFIC DESIGN -->
+  <link rel="stylesheet" href="css/music.css">
+</head>
+<body>
+
+<header id="header">
+  <h1>Have you met Ken?</h1>
+  <nav class="main-nav">
+    <ul>
+      <li><a href="index.html" class="nav-button">Home</a></li>
+      <li><a href="music.html" aria-current="page">Music</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="music-wrapper">
+
+    <div class="music-info-box">
+        <h3 id="info-title">Choose a video</h3>
+        <p id="info-text">Click one of the buttons below to start the player.</p>
+    </div>
+
+    <div class="video-panel">
+        <h2 id="video-heading">Noises and Sounds by Ken</h2>
+        <div id="player"></div>
+
+        <div class="music-buttons">
+            <button class="music-btn" onclick="loadVideo('E1ckbjugllU')">Dungeon Vibes</button>
+            <button class="music-btn" onclick="loadVideo('8ta-z1RjDlc')">NOISE</button>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="music.js"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
+
+</body>
+</html>

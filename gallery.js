@@ -138,7 +138,8 @@ window.state = {
       { src: 'gallery/hylle.jpg', description: 'A custom vinyl showcase. made for and by Ken.' },
       { src: 'gallery/SVAMPEBOBBERN.jpg', description: 'Profile picture Ken made for a browser game.' },
       { src: 'gallery/Vermillion.png', description: 'Profile picture Ken made for a browser game.' },
-      { src: 'gallery/VIVE_LA_VENIMEUX.png', description: 'Profile picture Ken made for a browser game.' }
+      { src: 'gallery/VIVE_LA_VENIMEUX.png', description: 'Profile picture Ken made for a browser game.' },
+      { src: 'gallery/enhancedbimmer.png', description: 'Ken edited a pic of his car to see what it would like with different wheels.' },
     ]
   }
 };
